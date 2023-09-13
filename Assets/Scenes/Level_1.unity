@@ -2037,6 +2037,7 @@ GameObject:
   - component: {fileID: 678811661}
   - component: {fileID: 678811660}
   - component: {fileID: 678811659}
+  - component: {fileID: 678811662}
   m_Layer: 5
   m_Name: QuestButton (1)
   m_TagString: Untagged
@@ -2158,6 +2159,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 678811657}
   m_CullTransparentMesh: 1
+--- !u!114 &678811662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678811657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afeabff5b9440f7478f1ee304b096bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Index: 1
+  AmountOfLetters: 7
+  Answer: canudos
+  QuestionText: "1. Esse \xE9 o texto da palavra de n\xFAmero UM!"
+  ArrayOfLetters: 
 --- !u!1 &707886088
 GameObject:
   m_ObjectHideFlags: 0
@@ -3568,6 +3586,7 @@ GameObject:
   - component: {fileID: 1188063808}
   - component: {fileID: 1188063810}
   - component: {fileID: 1188063809}
+  - component: {fileID: 1188063811}
   m_Layer: 5
   m_Name: QuestionText
   m_TagString: Untagged
@@ -3692,6 +3711,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188063807}
   m_CullTransparentMesh: 1
+--- !u!114 &1188063811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188063807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17fc2e4a767b974aa5cb4857ed869db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ModalText: {fileID: 1188063809}
+  TextToPrint: 
 --- !u!1 &1189072403
 GameObject:
   m_ObjectHideFlags: 0
@@ -4956,6 +4989,7 @@ GameObject:
   - component: {fileID: 1804311139}
   - component: {fileID: 1804311138}
   - component: {fileID: 1804311137}
+  - component: {fileID: 1804311140}
   m_Layer: 5
   m_Name: QuestButton (2)
   m_TagString: Untagged
@@ -5077,6 +5111,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804311135}
   m_CullTransparentMesh: 1
+--- !u!114 &1804311140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804311135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afeabff5b9440f7478f1ee304b096bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Index: 2
+  AmountOfLetters: 6
+  Answer: vargas
+  QuestionText: "2. Esse \xE9 o texto da palavra n\xFAmero DOIS!"
+  ArrayOfLetters: 
 --- !u!1 &1873645266
 GameObject:
   m_ObjectHideFlags: 0
