@@ -1,13 +1,12 @@
 using System;
 using System.Diagnostics;
-using Unity.Collections.LowLevel.Unsafe;
 using Debug = UnityEngine.Debug;
 
 namespace Assets.Scripts.Board
 {
     public class Word
     {
-        struct WordEventHandler
+        public struct WordEventHandler
         {
             public int Index { get; }
             public string Word { get; }
@@ -21,13 +20,15 @@ namespace Assets.Scripts.Board
         }
 
         LetterSlot[] _letterSlots;
-        EventHandler<WordEventHandler> _onWordCompleted;
+        public LetterSlot[] LetterSlots => _letterSlots;
+        
+        public EventHandler<WordEventHandler> OnWordCompleted;
 
         Board _parentBoard;
         int _index;
         string _word;
 
-        Word(Board boardParent, int index, string word)
+        public Word(Board boardParent, int index, string word)
         {
             _parentBoard = boardParent;
             _index = index;
@@ -44,6 +45,20 @@ namespace Assets.Scripts.Board
 
             }
         }
+
+        ~Word()
+        {
+            foreach (LetterSlot letterSlot in _letterSlots)
+            {
+                letterSlot.OnLetterValidated -= OnLetterValidated;
+                letterSlot.OnSlotOccupied -= OnSlotOccupied;
+                letterSlot.OnSlotFree -= OnSlotFree;
+                letterSlot.OnSlotLocked -= OnSlotLocked;
+            }
+        }
+
+      
+
         #region LetterSlotsEvents
         private void OnSlotLocked(object sender, LetterSlot.LetterEventHandler e)
         {
@@ -65,9 +80,9 @@ namespace Assets.Scripts.Board
 
         private void OnLetterValidated(object sender, LetterSlot.LetterEventHandler e)
         {
-            if (IsWordComplete() == 0)
+            if (IsWordComplete())
             {
-                _onWordCompleted.Invoke(this, new WordEventHandler(_index, _word));
+                OnWordCompleted.Invoke(this, new WordEventHandler(_index, _word));
             }
         }
         #endregion
@@ -92,21 +107,21 @@ namespace Assets.Scripts.Board
         }
 
         //Check if the word is completed
-        public int IsWordComplete()
+        public bool IsWordComplete()
         {
             //checks if all the slots are locked (validated)
             for (int i = 0; i < _letterSlots.Length; i++)
             {
                 if (!_letterSlots[i].IsLocked)
                 {
-                    return (int)GameReturnCodes.Fail;
+                    return false;
                 }
             }
-            return (int)GameReturnCodes.Success;
+            return true;
         }
 
         //Force complete word
-        public int ForceCompleteWord()
+        public int CompleteWord()
         {
             //checks if all the slots are locked (validated)
             for (int i = 0; i < _letterSlots.Length; i++)
@@ -117,12 +132,12 @@ namespace Assets.Scripts.Board
                 }
             }
 
-            _onWordCompleted.Invoke(this, new WordEventHandler(_index, _word));
+            OnWordCompleted.Invoke(this, new WordEventHandler(_index, _word));
             return (int)GameReturnCodes.Success;
         }
 
         //Force restart word
-        public int ForceRestartWord()
+        public int RestartWord()
         {
             PopulateWord(_word);
             return (int)GameReturnCodes.Success;

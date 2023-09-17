@@ -58,16 +58,16 @@ namespace Assets.Scripts.Board
                     //locks the slot
                     LockSlot();
                     OnSlotLocked?.Invoke(this, new LetterEventHandler(_index, CorrectLetter));
-                    return GameReturnCodes.Success;
+                    return (int)GameReturnCodes.Success;
                 }
                 else
                 {
-                    return GameReturnCodes.Fail;
+                    return (int)GameReturnCodes.Fail;
                 }
 
               
             }
-            else return GameReturnCodes.NotAllowed;
+            else return (int)GameReturnCodes.NotAllowed;
         }
         //Sets this slot as occupied
         int OcupySlot()
@@ -75,14 +75,14 @@ namespace Assets.Scripts.Board
             //checks if the slot is being occupied already
             if (_isOccupied)
             {
-                return GameReturnCodes.NotAllowed;
+                return (int)GameReturnCodes.NotAllowed;
             }
             else
             {
                 //occupies the slot
                 _isOccupied = true;
                 OnSlotOccupied?.Invoke(this, new LetterEventHandler(_index, CorrectLetter));
-                return GameReturnCodes.Success;
+                return (int)GameReturnCodes.Success;
             }
         }
         //Frees the slot, removing the attemped correctLetter
@@ -94,11 +94,11 @@ namespace Assets.Scripts.Board
                 //frees the slot
                 _isOccupied = false;
                 OnSlotFree?.Invoke(this, new LetterEventHandler(_index, CorrectLetter));
-                return GameReturnCodes.Success;
+                return (int)GameReturnCodes.Success;
             }
             else
             {
-                return GameReturnCodes.NotAllowed;
+                return (int)GameReturnCodes.NotAllowed;
             }
         }
 
@@ -108,14 +108,14 @@ namespace Assets.Scripts.Board
             //checks if the slot is already locked
             if (_isLocked)
             {
-                return GameReturnCodes.NotAllowed;
+                return (int)GameReturnCodes.NotAllowed;
             }
             else
             {
                 //locks the slot
                 _isLocked = true;
                 OnSlotLocked?.Invoke(this, new LetterEventHandler(_index, CorrectLetter));
-                return GameReturnCodes.Success;
+                return (int)GameReturnCodes.Success;
             }
         }
 
