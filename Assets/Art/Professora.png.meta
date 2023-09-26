@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac1df5651bc064142a3d7c7c220d15b8
+guid: 3f541b5ab3b5d4f448f7f2d9a9417d56
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -173,7 +173,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Professora_0
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 26
+        width: 363
+        height: 801
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74a4e90ff3a373f4eab9674ed83e9fd8
+      internalID: -394947393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Professora_1
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 17
+        width: 349
+        height: 808
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 245065368b04e554c887ae6ab1794aa8
+      internalID: -1943372443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Professora_2
+      rect:
+        serializedVersion: 2
+        x: 1381
+        y: 26
+        width: 373
+        height: 742
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d40c787a60fb72b4fab3a0cad7766dbf
+      internalID: -1036166303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -184,7 +247,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Professora_0: -394947393
+      Professora_1: -1943372443
+      Professora_2: -1036166303
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
