@@ -6168,6 +6168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridSize: 10
+  _runDebugGridMode: 1
   _gameWordsHolderList:
   - Word: Figuereido
     InitialGridPosition: {x: 0, y: 2}

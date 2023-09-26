@@ -13,6 +13,7 @@ namespace Assets.Scripts
 
 
         [SerializeField] private int _gridSize = 5;
+        [SerializeField] private bool _runDebugGridMode;
 
         private Dictionary<Vector2, LetterSlot> _letterSlotsDictionary;
 
@@ -54,8 +55,10 @@ namespace Assets.Scripts
         /// </summary>
         private void OnDrawGizmos()
         {
-            InitiateBoard();
 
+            if (!_runDebugGridMode) return;
+
+            InitiateBoard();
 
             //draws the grid
             Gizmos.color = Color.white;
