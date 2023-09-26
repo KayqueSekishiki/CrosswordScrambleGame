@@ -1,0 +1,124 @@
+\doxysection{Assets.\+Scripts.\+Board.\+Letter\+Slot Class Reference}
+\hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot}{}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot}\index{Assets.Scripts.Board.LetterSlot@{Assets.Scripts.Board.LetterSlot}}
+
+
+Represents a letter slot in a word on the game board.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_assets_1_1_scripts_1_1_board_1_1_letter_slot_1_1_letter_event_handler}{Letter\+Event\+Handler}}
+\begin{DoxyCompactList}\small\item\em Event handler structure for letter slot events. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_ae291837e5d70b598e9d22312b770d93e}{Letter\+Slot}} (\mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_word}{Word}} parent\+Word, Vector2 grid\+Position, int index, char correct\+Letter)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the Letter\+Slot class. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a7b28f486301da360319c8c293b0b01bb}{Validate\+Letter}} (char letter)
+\begin{DoxyCompactList}\small\item\em Validates the input letter and locks the slot if correct. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_ac8f74c3dcdb7c19acf265467c25d7e99}{Is\+This\+Slot\+Outside\+Of\+The\+Grid}} (int grid\+Size)
+\begin{DoxyCompactList}\small\item\em Checks whether or not this slot is inside the grid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_adc1a4b832c4eaf274d88e6c5cf6165e5}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_adc1a4b832c4eaf274d88e6c5cf6165e5} 
+Event\+Handler$<$ \mbox{\hyperlink{struct_assets_1_1_scripts_1_1_board_1_1_letter_slot_1_1_letter_event_handler}{Letter\+Event\+Handler}} $>$ {\bfseries On\+Slot\+Occupied}
+\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a7154e02f2ead82a290c5fb9030d4b188}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a7154e02f2ead82a290c5fb9030d4b188} 
+Event\+Handler$<$ \mbox{\hyperlink{struct_assets_1_1_scripts_1_1_board_1_1_letter_slot_1_1_letter_event_handler}{Letter\+Event\+Handler}} $>$ {\bfseries On\+Slot\+Free}
+\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a567a3643570d613e99b362b7879a06b5}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a567a3643570d613e99b362b7879a06b5} 
+Event\+Handler$<$ \mbox{\hyperlink{struct_assets_1_1_scripts_1_1_board_1_1_letter_slot_1_1_letter_event_handler}{Letter\+Event\+Handler}} $>$ {\bfseries On\+Slot\+Locked}
+\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a40db98c3fa4c3412fb945305a97be620}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a40db98c3fa4c3412fb945305a97be620} 
+Event\+Handler$<$ \mbox{\hyperlink{struct_assets_1_1_scripts_1_1_board_1_1_letter_slot_1_1_letter_event_handler}{Letter\+Event\+Handler}} $>$ {\bfseries On\+Letter\+Validated}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a230ab64ae5bf73b543908076e143bd20}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a230ab64ae5bf73b543908076e143bd20} 
+char {\bfseries Correct\+Letter}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Public accessor for the correct letter. \end{DoxyCompactList}\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a898ecf80c3a954c1f198241b230b378e}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a898ecf80c3a954c1f198241b230b378e} 
+bool {\bfseries Is\+Occupied}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Public accessor to check if the slot is occupied. \end{DoxyCompactList}\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_ab519b04ecf3512737645fba0ccd25709}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_ab519b04ecf3512737645fba0ccd25709} 
+bool {\bfseries Is\+Locked}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Public accessor to check if the slot is locked. \end{DoxyCompactList}\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a5644103b10d3ea47ba06905d00f2913c}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a5644103b10d3ea47ba06905d00f2913c} 
+Vector2 {\bfseries Grid\+Position}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Public accessor for the slot\textquotesingle{}s grid position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a letter slot in a word on the game board. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_ae291837e5d70b598e9d22312b770d93e}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_ae291837e5d70b598e9d22312b770d93e} 
+\index{Assets.Scripts.Board.LetterSlot@{Assets.Scripts.Board.LetterSlot}!LetterSlot@{LetterSlot}}
+\index{LetterSlot@{LetterSlot}!Assets.Scripts.Board.LetterSlot@{Assets.Scripts.Board.LetterSlot}}
+\doxysubsubsection{\texorpdfstring{LetterSlot()}{LetterSlot()}}
+{\footnotesize\ttfamily Assets.\+Scripts.\+Board.\+Letter\+Slot.\+Letter\+Slot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_word}{Word}}}]{parent\+Word,  }\item[{Vector2}]{grid\+Position,  }\item[{int}]{index,  }\item[{char}]{correct\+Letter }\end{DoxyParamCaption})}
+
+
+
+Initializes a new instance of the Letter\+Slot class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent\+Word} & Reference to the parent Word object.\\
+\hline
+{\em grid\+Position} & Position in the grid.\\
+\hline
+{\em index} & Index of the slot.\\
+\hline
+{\em correct\+Letter} & Correct letter for the slot.\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_ac8f74c3dcdb7c19acf265467c25d7e99}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_ac8f74c3dcdb7c19acf265467c25d7e99} 
+\index{Assets.Scripts.Board.LetterSlot@{Assets.Scripts.Board.LetterSlot}!IsThisSlotOutsideOfTheGrid@{IsThisSlotOutsideOfTheGrid}}
+\index{IsThisSlotOutsideOfTheGrid@{IsThisSlotOutsideOfTheGrid}!Assets.Scripts.Board.LetterSlot@{Assets.Scripts.Board.LetterSlot}}
+\doxysubsubsection{\texorpdfstring{IsThisSlotOutsideOfTheGrid()}{IsThisSlotOutsideOfTheGrid()}}
+{\footnotesize\ttfamily bool Assets.\+Scripts.\+Board.\+Letter\+Slot.\+Is\+This\+Slot\+Outside\+Of\+The\+Grid (\begin{DoxyParamCaption}\item[{int}]{grid\+Size }\end{DoxyParamCaption})}
+
+
+
+Checks whether or not this slot is inside the grid. 
+
+It verifies this by checking if either the x or y grid position from this slot has a value greater then or equal to the {\itshape grid\+Size}  
+
+
+\begin{DoxyParams}{Parameters}
+{\em grid\+Size} & grid\textquotesingle{}s size\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a7b28f486301da360319c8c293b0b01bb}\label{class_assets_1_1_scripts_1_1_board_1_1_letter_slot_a7b28f486301da360319c8c293b0b01bb} 
+\index{Assets.Scripts.Board.LetterSlot@{Assets.Scripts.Board.LetterSlot}!ValidateLetter@{ValidateLetter}}
+\index{ValidateLetter@{ValidateLetter}!Assets.Scripts.Board.LetterSlot@{Assets.Scripts.Board.LetterSlot}}
+\doxysubsubsection{\texorpdfstring{ValidateLetter()}{ValidateLetter()}}
+{\footnotesize\ttfamily int Assets.\+Scripts.\+Board.\+Letter\+Slot.\+Validate\+Letter (\begin{DoxyParamCaption}\item[{char}]{letter }\end{DoxyParamCaption})}
+
+
+
+Validates the input letter and locks the slot if correct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em letter} & Input letter to validate.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Game return code indicating success, failure, or not allowed.
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Git Repos/\+Crossword\+Scramble\+Game/\+Assets/\+Scripts/\+Board/Letter\+Slot.\+cs\end{DoxyCompactItemize}

@@ -6169,15 +6169,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridSize: 10
   _gameWordsHolderList:
-  - Word: teste1
-    InitialGridPosition: {x: 2, y: 2}
+  - Word: Figuereido
+    InitialGridPosition: {x: 0, y: 2}
     IsHorizontal: 1
-  - Word: teste2
-    InitialGridPosition: {x: 2, y: 0}
+  - Word: Geisel
+    InitialGridPosition: {x: 4, y: 3}
     IsHorizontal: 0
-  - Word: teste3
-    InitialGridPosition: {x: 3, y: 1}
+  - Word: QuerraSuja
+    InitialGridPosition: {x: 0, y: 0}
     IsHorizontal: 1
+  - Word: DiretasJa
+    InitialGridPosition: {x: 1, y: 4}
+    IsHorizontal: 0
 --- !u!4 &2104031403
 Transform:
   m_ObjectHideFlags: 0

@@ -1,11 +1,18 @@
 using System;
 using System.Diagnostics;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace Assets.Scripts.Board
 {
+    /// <summary>
+    /// Represents a word on the game board.
+    /// </summary>
     public class Word
     {
+        /// <summary>
+        /// Event handler structure for when a word is completed.
+        /// </summary>
         public struct WordEventHandler
         {
             public int Index { get; }
@@ -20,21 +27,45 @@ namespace Assets.Scripts.Board
         }
 
         LetterSlot[] _letterSlots;
+        /// <summary>
+        /// Public accessor for the LetterSlot array.
+        /// </summary>
         public LetterSlot[] LetterSlots => _letterSlots;
-        
+
+        public string GetWord => _word;
+
+        public bool IsWordHorizontal => _isWordHorizontal;
+
+        public Vector2 WordInitialGridPosition => _wordInitialGridPosition;
+
+        /// <summary>
+        /// Event triggered when a word is completed.
+        /// </summary>
         public EventHandler<WordEventHandler> OnWordCompleted;
 
         Board _parentBoard;
         int _index;
         string _word;
-
-        public Word(Board boardParent, int index, string word)
+        private readonly bool _isWordHorizontal;
+        private readonly Vector2 _wordInitialGridPosition;
+        
+        /// <summary>
+        /// Constructor to initialize a Word instance.
+        /// </summary>
+        /// <param name="boardParent">Parent board object.</param>
+        /// <param name="index">Index of the word.</param>
+        /// <param name="word">Actual word string.</param>
+        /// <param name="isWordHorizontal">Orientation of the word.</param>
+        /// <param name="wordInitialGridPosition">Initial grid position of the word.</param>
+        public Word(Board boardParent, int index, string word, bool isWordHorizontal, Vector2 wordInitialGridPosition)
         {
             _parentBoard = boardParent;
             _index = index;
             _word = word;
+            _isWordHorizontal = isWordHorizontal;
+            _wordInitialGridPosition = wordInitialGridPosition;
 
-            PopulateWord(_word);
+            PopulateWord(GetWord, isWordHorizontal, wordInitialGridPosition);
 
             foreach (LetterSlot letterSlot in _letterSlots)
             {
@@ -46,6 +77,9 @@ namespace Assets.Scripts.Board
             }
         }
 
+        /// <summary>
+        /// Destructor to unregister from slot events.
+        /// </summary>
         ~Word()
         {
             foreach (LetterSlot letterSlot in _letterSlots)
@@ -57,7 +91,7 @@ namespace Assets.Scripts.Board
             }
         }
 
-      
+
 
         #region LetterSlotsEvents
         private void OnSlotLocked(object sender, LetterSlot.LetterEventHandler e)
@@ -78,17 +112,24 @@ namespace Assets.Scripts.Board
             throw new NotImplementedException();
         }
 
+
         private void OnLetterValidated(object sender, LetterSlot.LetterEventHandler e)
         {
             if (IsWordComplete())
             {
-                OnWordCompleted.Invoke(this, new WordEventHandler(_index, _word));
+                OnWordCompleted.Invoke(this, new WordEventHandler(_index, GetWord));
             }
         }
         #endregion
 
-        //Populates the LetterSlots with letters from the word
-        private int PopulateWord(string newWord)
+        /// <summary>
+        /// Populates the word into LetterSlots.
+        /// </summary>
+        /// <param name="newWord">The word to populate.</param>
+        /// <param name="isHorizontal">Orientation of the word.</param>
+        /// <param name="initialGridPosition">Initial position in the grid.</param>
+        /// <returns>Success or failure code.</returns>
+        private int PopulateWord(string newWord, bool isHorizontal, Vector2 initialGridPosition)
         {
             _letterSlots = new LetterSlot[newWord.Length];
             if (_letterSlots.Length == 0)
@@ -100,13 +141,21 @@ namespace Assets.Scripts.Board
 
             for (int i = 0; i < newWord.Length; i++)
             {
-                _letterSlots[i] = new LetterSlot(this, i, newWord[i]);
+                Vector2 letterGridPosition = new Vector2(initialGridPosition.x, initialGridPosition.y);
+
+                if (isHorizontal) letterGridPosition.Set(letterGridPosition.x + i, letterGridPosition.y);
+                else letterGridPosition.Set(letterGridPosition.x, letterGridPosition.y + i);
+
+                _letterSlots[i] = new LetterSlot(this, letterGridPosition, i, newWord[i]);
             }
 
             return (int)GameReturnCodes.Success;
         }
 
-        //Check if the word is completed
+        /// <summary>
+        /// Checks if the word is complete.
+        /// </summary>
+        /// <returns>True if complete, false otherwise.</returns>
         public bool IsWordComplete()
         {
             //checks if all the slots are locked (validated)
@@ -120,7 +169,10 @@ namespace Assets.Scripts.Board
             return true;
         }
 
-        //Force complete word
+        /// <summary>
+        /// Forces the completion of the word.
+        /// </summary>
+        /// <returns>Success or failure code.</returns>
         public int CompleteWord()
         {
             //checks if all the slots are locked (validated)
@@ -132,14 +184,17 @@ namespace Assets.Scripts.Board
                 }
             }
 
-            OnWordCompleted.Invoke(this, new WordEventHandler(_index, _word));
+            OnWordCompleted.Invoke(this, new WordEventHandler(_index, GetWord));
             return (int)GameReturnCodes.Success;
         }
 
-        //Force restart word
+        /// <summary>
+        /// Forces the restart of the word.
+        /// </summary>
+        /// <returns>Success or failure code.</returns>
         public int RestartWord()
         {
-            PopulateWord(_word);
+            PopulateWord(GetWord,IsWordHorizontal,WordInitialGridPosition);
             return (int)GameReturnCodes.Success;
         }
 

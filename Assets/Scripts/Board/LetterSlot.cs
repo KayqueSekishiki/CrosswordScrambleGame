@@ -1,8 +1,11 @@
 using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Board
-{ 
-
+{
+    /// <summary>
+    /// Represents a letter slot in a word on the game board.
+    /// </summary>
     public class LetterSlot
     {
         char _correctLetter;
@@ -11,19 +14,44 @@ namespace Assets.Scripts.Board
         bool _isOccupied;
         bool _isLocked;
         Word _parentWord;
+        Vector2 _gridPosition;
 
+        /// <summary>
+        /// Public accessor for the correct letter.
+        /// </summary>
         public char CorrectLetter => _correctLetter;
+        /// <summary>
+        /// Public accessor to check if the slot is occupied.
+        /// </summary>
         public bool IsOccupied => _isOccupied;
+        /// <summary>
+        /// Public accessor to check if the slot is locked.
+        /// </summary>
         public bool IsLocked => _isLocked;
+        /// <summary>
+        /// Public accessor for the slot's grid position.
+        /// </summary>
+        public Vector2 GridPosition => _gridPosition;
+        /// <summary>
+        /// Event handler structure for letter slot events.
+        /// </summary>
         public struct LetterEventHandler
         {
             public int Index { get; }
             public char Letter { get; }
+            public Vector2 GridPosition { get; }
 
-            public LetterEventHandler(int index, char letter)
+            /// <summary>
+            /// Initializes the event handler with index, letter, and grid position.
+            /// </summary>
+            /// <param name="index">Index of the letter slot.</param>
+            /// <param name="letter">Correct letter.</param>
+            /// <param name="gridPosition">Position of the slot in the grid.</param>
+            public LetterEventHandler(int index, char letter, Vector2 gridPosition)
             {
                 this.Index = index;
                 this.Letter = letter;
+                this.GridPosition = gridPosition;
             }
         }
 
@@ -32,17 +60,28 @@ namespace Assets.Scripts.Board
         public EventHandler<LetterEventHandler> OnSlotLocked;
         public EventHandler<LetterEventHandler> OnLetterValidated;
 
-
-        public LetterSlot(Word parentWord, int index, char correctLetter)
+        /// <summary>
+        /// Initializes a new instance of the LetterSlot class.
+        /// </summary>
+        /// <param name="parentWord">Reference to the parent Word object.</param>
+        /// <param name="gridPosition">Position in the grid.</param>
+        /// <param name="index">Index of the slot.</param>
+        /// <param name="correctLetter">Correct letter for the slot.</param>
+        public LetterSlot(Word parentWord, Vector2 gridPosition, int index, char correctLetter)
         {
             _parentWord = parentWord;
+            _gridPosition = gridPosition;
             _index = index;
             _correctLetter = correctLetter;
             _isOccupied = false;
             _isLocked = false;
         }
 
-        //Validates the correctLetter and locks the slot if it is correct
+        /// <summary>
+        /// Validates the input letter and locks the slot if correct.
+        /// </summary>
+        /// <param name="letter">Input letter to validate.</param>
+        /// <returns>Game return code indicating success, failure, or not allowed.</returns>
         public int ValidateLetter(char letter)
         {
             //checks if the slot is free and not locked
@@ -50,14 +89,14 @@ namespace Assets.Scripts.Board
             {
                 //occupies the slot
                 OcupySlot();
-                OnSlotOccupied?.Invoke(this, new LetterEventHandler(_index, CorrectLetter));
+                OnSlotOccupied?.Invoke(this, new LetterEventHandler(_index, CorrectLetter, _gridPosition));
 
                 //checks if the letter is correct
                 if (letter == _correctLetter)
                 {
                     //locks the slot
                     LockSlot();
-                    OnSlotLocked?.Invoke(this, new LetterEventHandler(_index, CorrectLetter));
+                    OnSlotLocked?.Invoke(this, new LetterEventHandler(_index, CorrectLetter, _gridPosition));
                     return (int)GameReturnCodes.Success;
                 }
                 else
@@ -65,11 +104,29 @@ namespace Assets.Scripts.Board
                     return (int)GameReturnCodes.Fail;
                 }
 
-              
+
             }
             else return (int)GameReturnCodes.NotAllowed;
         }
-        //Sets this slot as occupied
+
+        /// <summary>
+        /// Checks whether or not this slot is inside the grid
+        /// </summary>
+        /// <remarks>
+        /// It verifies this by checking if either the x or y grid position from this slot
+        /// has a value greater then or equal to the <paramref name="gridSize"/>
+        /// </remarks>
+        /// <param name="gridSize">grid's size</param>
+        /// <returns></returns>
+        public bool IsThisSlotOutsideOfTheGrid(int gridSize)
+        {
+            return GridPosition.x >= gridSize || GridPosition.y >= gridSize;
+        }
+
+        /// <summary>
+        /// Occupies the letter slot.
+        /// </summary>
+        /// <returns>Game return code indicating success or not allowed.</returns>
         int OcupySlot()
         {
             //checks if the slot is being occupied already
@@ -81,11 +138,15 @@ namespace Assets.Scripts.Board
             {
                 //occupies the slot
                 _isOccupied = true;
-                OnSlotOccupied?.Invoke(this, new LetterEventHandler(_index, CorrectLetter));
+                OnSlotOccupied?.Invoke(this, new LetterEventHandler(_index, CorrectLetter, _gridPosition));
                 return (int)GameReturnCodes.Success;
             }
         }
-        //Frees the slot, removing the attemped correctLetter
+
+        /// <summary>
+        /// Frees the occupied slot.
+        /// </summary>
+        /// <returns>Game return code indicating success or not allowed.</returns>
         int FreeSlot()
         {
             //checks if the slot is occupied
@@ -93,7 +154,7 @@ namespace Assets.Scripts.Board
             {
                 //frees the slot
                 _isOccupied = false;
-                OnSlotFree?.Invoke(this, new LetterEventHandler(_index, CorrectLetter));
+                OnSlotFree?.Invoke(this, new LetterEventHandler(_index, CorrectLetter, _gridPosition));
                 return (int)GameReturnCodes.Success;
             }
             else
@@ -102,7 +163,10 @@ namespace Assets.Scripts.Board
             }
         }
 
-        //Sets the slot as locked, not allowing it to be freed
+        /// <summary>
+        /// Locks the letter slot.
+        /// </summary>
+        /// <returns>Game return code indicating success or not allowed.</returns>
         int LockSlot()
         {
             //checks if the slot is already locked
@@ -114,11 +178,11 @@ namespace Assets.Scripts.Board
             {
                 //locks the slot
                 _isLocked = true;
-                OnSlotLocked?.Invoke(this, new LetterEventHandler(_index, CorrectLetter));
+                OnSlotLocked?.Invoke(this, new LetterEventHandler(_index, CorrectLetter, _gridPosition));
                 return (int)GameReturnCodes.Success;
             }
         }
 
-
+      
     }
 }
