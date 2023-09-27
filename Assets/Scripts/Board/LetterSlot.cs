@@ -104,6 +104,7 @@ namespace Assets.Scripts.Board
                 }
                 else
                 {
+                    FreeSlot();
                     return (int)GameReturnCodes.Fail;
                 }
 

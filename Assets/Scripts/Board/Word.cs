@@ -98,19 +98,19 @@ namespace Assets.Scripts.Board
         private void OnSlotLocked(object sender, LetterSlot.LetterEventHandler e)
         {
             //PLACE HOLDER
-            throw new NotImplementedException();
+            OnWordUpdated.Invoke(this, new WordEventHandler(_index, GetWord));
         }
 
         private void OnSlotFree(object sender, LetterSlot.LetterEventHandler e)
         {
             //PLACE HOLDER
-            throw new NotImplementedException();
+             
         }
 
         private void OnSlotOccupied(object sender, LetterSlot.LetterEventHandler e)
         {
             //PLACE HOLDER
-            throw new NotImplementedException();
+            
         }
 
 

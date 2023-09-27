@@ -35,6 +35,8 @@ namespace Assets.Scripts
         void Start()
         {
             InitiateBoard();
+
+            _board.Words[0].CompleteWord();
         }
 
         void CreateALetterSlotOnTheBoard(Transform parent, LetterSlot letterSlot, bool variant = false)
@@ -97,6 +99,7 @@ namespace Assets.Scripts
                 layoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft;
                 layoutGroup.childAlignment = TextAnchor.LowerLeft;
                 layoutGroup.constraintCount = _gridSize;
+                layoutGroup.cellSize = new Vector2(65, 65);
                 GridGameObject.transform.SetParent(_boardCanvas.transform, false);
 
 
