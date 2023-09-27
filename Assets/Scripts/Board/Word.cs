@@ -42,6 +42,7 @@ namespace Assets.Scripts.Board
         /// Event triggered when a word is completed.
         /// </summary>
         public EventHandler<WordEventHandler> OnWordCompleted;
+        public EventHandler<WordEventHandler> OnWordUpdated;
 
         Board _parentBoard;
         int _index;
@@ -115,10 +116,12 @@ namespace Assets.Scripts.Board
 
         private void OnLetterValidated(object sender, LetterSlot.LetterEventHandler e)
         {
+            OnWordUpdated.Invoke(this, new WordEventHandler(_index, GetWord));
             if (IsWordComplete())
             {
                 OnWordCompleted.Invoke(this, new WordEventHandler(_index, GetWord));
             }
+
         }
         #endregion
 

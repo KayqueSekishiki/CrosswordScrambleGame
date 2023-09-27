@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Board;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = System.Object;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -18,6 +20,7 @@ namespace Assets.Scripts
         [Header("Setup")]
         [SerializeField] private int _gridSize = 5;
         [SerializeField] private bool _runDebugGridMode;
+        GameObject[,] gridObjectsMatrix;
 
         [Header("Prefab References")]
         [SerializeField] private Canvas _boardCanvas;
@@ -43,11 +46,7 @@ namespace Assets.Scripts
             GameObject slot = Instantiate(letterSlotPrefab, Vector3.zero, Quaternion.identity, parent);
 
             slot.GetComponentInChildren<TextMeshProUGUI>().SetText("");
-
-
-
         }
-
 
 
         Vector3 GridToScreenPosition(Vector2 ParentSize, Vector2 gridPosition)
@@ -89,49 +88,49 @@ namespace Assets.Scripts
                 //debug initialization ends here
                 if (_runDebugGridMode) return (int)GameReturnCodes.Success;
 
+                gridObjectsMatrix = new GameObject[_gridSize, _gridSize];
 
+                GameObject GridGameObject = new GameObject("Grid");
+                GridLayoutGroup layoutGroup;
+                layoutGroup = GridGameObject.AddComponent<GridLayoutGroup>();
+                layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+                layoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft;
+                layoutGroup.childAlignment = TextAnchor.LowerLeft;
+                layoutGroup.constraintCount = _gridSize;
+                GridGameObject.transform.SetParent(_boardCanvas.transform, false);
+
+
+                GridGameObject.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+                GridGameObject.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
+                GridGameObject.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
+
+                for (int y = 0; y < _gridSize; y++)
+                {
+                    for (int x = 0; x < _gridSize; x++)
+                    {
+                        // Instantiate prefab at calculated screen position
+                        GameObject slot = Instantiate(_letterSlotPrefab, Vector3.zero, Quaternion.identity, GridGameObject.transform);
+                        slot.GetComponent<Image>().enabled = false;
+                        slot.GetComponentInChildren<TextMeshProUGUI>().SetText("");
+
+                        gridObjectsMatrix[x, y] = slot;
+                    }
+                }
 
                 foreach (Word word in _board.Words)
                 {
-                    string wordHolderName = word.IsWordHorizontal ? "Horizontal Holder" : "Vertical Holder";
 
-                    GameObject worldHolder = new GameObject(wordHolderName);
-
-                    HorizontalOrVerticalLayoutGroup layoutGroup;
-
-                    // Calculate screen position based on grid position and screen resolution 
-                    Vector2 screenPosition =
-                        GridToScreenPosition(new Vector2(_boardCanvas.GetComponent<RectTransform>().sizeDelta.x
-                                , _boardCanvas.GetComponent<RectTransform>().sizeDelta.y)
-                            , word.WordInitialGridPosition);
-                     
-                    
-
-                    //Setting up the layout group
-                    if (word.IsWordHorizontal)
+                    foreach (LetterSlot letterSlot in word.LetterSlots)
                     {
-                        // Add the Horizontal Layout Group component
-                        layoutGroup = worldHolder.AddComponent<HorizontalLayoutGroup>();
+                        gridObjectsMatrix[(int)letterSlot.GridPosition.x,(int)letterSlot.GridPosition.y]
+                            .GetComponent<Image>().enabled = true;
 
-                        SetupLayoutGroup(layoutGroup, worldHolder);
+                        gridObjectsMatrix[(int)letterSlot.GridPosition.x, (int)letterSlot.GridPosition.y].GetComponent<UILetterSlotHolder>()
+                            .StashLetterSlotReference(letterSlot);
+
                     }
-                    else
-                    {
-                        // Add the Vertical Layout Group component
-                        layoutGroup = worldHolder.AddComponent<VerticalLayoutGroup>();
-
-                        SetupLayoutGroup(layoutGroup, worldHolder);
-                    }
-
-
-                    layoutGroup.GetComponent<RectTransform>().anchoredPosition = screenPosition;
-
-                    for (int i = 0; i < word.GetWord.Length; i++)
-                    {
-
-                        CreateALetterSlotOnTheBoard(worldHolder.transform, word.LetterSlots[i]);
-                    }
-
+                   
+                    word.OnWordUpdated+= OnWordUpdated;
 
                 }
 
@@ -148,26 +147,27 @@ namespace Assets.Scripts
             }
         }
 
-        private void SetupLayoutGroup(HorizontalOrVerticalLayoutGroup layoutGroup, GameObject worldHolder)
+        private void OnWordUpdated(object sender, Word.WordEventHandler e)
+        {
+            Word word = (Word)sender;
+
+            foreach (LetterSlot letterSlot in word.LetterSlots)
+            {
+                if (letterSlot.IsLocked)
+                {
+                    gridObjectsMatrix[(int)letterSlot.GridPosition.x,(int)letterSlot.GridPosition.y].GetComponentInChildren<TextMeshProUGUI>().SetText(letterSlot.CorrectLetter.ToString());
+                }
+
+            }
+        }
+
+        private void SetupLayoutGroup(GridLayoutGroup layoutGroup, GameObject worldHolder)
         {
             // You can then set various layout properties
             layoutGroup.childAlignment = TextAnchor.MiddleCenter;
-            layoutGroup.spacing = 0;
 
             // Attach the new object to the Canvas
-            worldHolder.transform.SetParent(_boardCanvas.transform, false);
 
-            layoutGroup.childControlHeight = false;
-            layoutGroup.childControlWidth = false;
-            layoutGroup.childForceExpandHeight = false;
-            layoutGroup.childForceExpandWidth = false;
-
-            //// Get RectTransform and stretch it to fill the canvas
-            //RectTransform rectTransform = layoutGroup.GetComponent<RectTransform>();
-            //rectTransform.anchorMin = new Vector2(0, 0);
-            //rectTransform.anchorMax = new Vector2(1, 1);
-            //rectTransform.offsetMin = new Vector2(0, 0);
-            //rectTransform.offsetMax = new Vector2(0, 0);
         }
 
 #if UNITY_EDITOR

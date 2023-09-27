@@ -32,6 +32,9 @@ namespace Assets.Scripts.Board
         /// Public accessor for the slot's grid position.
         /// </summary>
         public Vector2 GridPosition => _gridPosition;
+
+        public Word ParentWord => _parentWord;
+
         /// <summary>
         /// Event handler structure for letter slot events.
         /// </summary>
