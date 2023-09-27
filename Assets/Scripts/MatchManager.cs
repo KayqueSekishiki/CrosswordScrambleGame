@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Board;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -11,14 +15,55 @@ namespace Assets.Scripts
     public class Match : MonoBehaviour
     {
 
-
+        [Header("Setup")]
         [SerializeField] private int _gridSize = 5;
         [SerializeField] private bool _runDebugGridMode;
 
-        private Dictionary<Vector2, LetterSlot> _letterSlotsDictionary;
+        [Header("Prefab References")]
+        [SerializeField] private Canvas _boardCanvas;
+        [SerializeField] private GameObject _letterSlotPrefab;
+        [SerializeField] private GameObject _letterSlotPrefabVariant;
+
 
         [SerializeField] private Board.Board.BoardWords[] _gameWordsHolderList;
         private Board.Board _board;
+
+
+        void Start()
+        {
+            InitiateBoard();
+        }
+
+        void CreateALetterSlotOnTheBoard(Transform parent, LetterSlot letterSlot, bool variant = false)
+        {
+            GameObject letterSlotPrefab = variant ? _letterSlotPrefabVariant : _letterSlotPrefab;
+
+
+            // Instantiate prefab at calculated screen position
+            GameObject slot = Instantiate(letterSlotPrefab, Vector3.zero, Quaternion.identity, parent);
+
+            slot.GetComponentInChildren<TextMeshProUGUI>().SetText("");
+
+
+
+        }
+
+
+
+        Vector3 GridToScreenPosition(Vector2 ParentSize, Vector2 gridPosition)
+        {
+            Vector2 canvasOffset = _boardCanvas.GetComponent<RectTransform>().anchoredPosition;
+
+            float xFactor = ParentSize.x / (_gridSize - 1);  // -1 because we start from zero
+            float yFactor = ParentSize.y / (_gridSize - 1); // -1 because we start from zero
+
+            float xPos = xFactor * gridPosition.x + canvasOffset.x;
+            float yPos = yFactor * gridPosition.y + canvasOffset.y;
+
+
+            return new Vector3(xPos, yPos, 0);
+        }
+
 
         /// <summary>
         /// Initialize the board, by actually saving the correct grid position for each letter slot of each chosen word.
@@ -40,7 +85,61 @@ namespace Assets.Scripts
                 _board = new Board.Board(_gameWordsHolderList);
 
                 Debug.Log("Board created");
+
+                //debug initialization ends here
+                if (_runDebugGridMode) return (int)GameReturnCodes.Success;
+
+
+
+                foreach (Word word in _board.Words)
+                {
+                    string wordHolderName = word.IsWordHorizontal ? "Horizontal Holder" : "Vertical Holder";
+
+                    GameObject worldHolder = new GameObject(wordHolderName);
+
+                    HorizontalOrVerticalLayoutGroup layoutGroup;
+
+                    // Calculate screen position based on grid position and screen resolution 
+                    Vector2 screenPosition =
+                        GridToScreenPosition(new Vector2(_boardCanvas.GetComponent<RectTransform>().sizeDelta.x
+                                , _boardCanvas.GetComponent<RectTransform>().sizeDelta.y)
+                            , word.WordInitialGridPosition);
+                     
+                    
+
+                    //Setting up the layout group
+                    if (word.IsWordHorizontal)
+                    {
+                        // Add the Horizontal Layout Group component
+                        layoutGroup = worldHolder.AddComponent<HorizontalLayoutGroup>();
+
+                        SetupLayoutGroup(layoutGroup, worldHolder);
+                    }
+                    else
+                    {
+                        // Add the Vertical Layout Group component
+                        layoutGroup = worldHolder.AddComponent<VerticalLayoutGroup>();
+
+                        SetupLayoutGroup(layoutGroup, worldHolder);
+                    }
+
+
+                    layoutGroup.GetComponent<RectTransform>().anchoredPosition = screenPosition;
+
+                    for (int i = 0; i < word.GetWord.Length; i++)
+                    {
+
+                        CreateALetterSlotOnTheBoard(worldHolder.transform, word.LetterSlots[i]);
+                    }
+
+
+                }
+
                 return (int)GameReturnCodes.Success;
+
+
+
+
             }
             else
             {
@@ -49,7 +148,30 @@ namespace Assets.Scripts
             }
         }
 
+        private void SetupLayoutGroup(HorizontalOrVerticalLayoutGroup layoutGroup, GameObject worldHolder)
+        {
+            // You can then set various layout properties
+            layoutGroup.childAlignment = TextAnchor.MiddleCenter;
+            layoutGroup.spacing = 0;
+
+            // Attach the new object to the Canvas
+            worldHolder.transform.SetParent(_boardCanvas.transform, false);
+
+            layoutGroup.childControlHeight = false;
+            layoutGroup.childControlWidth = false;
+            layoutGroup.childForceExpandHeight = false;
+            layoutGroup.childForceExpandWidth = false;
+
+            //// Get RectTransform and stretch it to fill the canvas
+            //RectTransform rectTransform = layoutGroup.GetComponent<RectTransform>();
+            //rectTransform.anchorMin = new Vector2(0, 0);
+            //rectTransform.anchorMax = new Vector2(1, 1);
+            //rectTransform.offsetMin = new Vector2(0, 0);
+            //rectTransform.offsetMax = new Vector2(0, 0);
+        }
+
 #if UNITY_EDITOR
+
         /// <summary>
         /// Draws the board grid and words using Gizmos.
         /// </summary>
