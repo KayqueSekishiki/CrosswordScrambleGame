@@ -34,9 +34,7 @@ namespace Assets.Scripts
 
         void Start()
         {
-            InitiateBoard();
-
-            _board.Words[0].CompleteWord();
+            InitiateBoard(); 
         }
 
         void CreateALetterSlotOnTheBoard(Transform parent, LetterSlot letterSlot, bool variant = false)

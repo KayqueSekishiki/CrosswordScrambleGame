@@ -15,13 +15,15 @@ namespace Assets.Scripts.Board
         public struct BoardWords
         {
             public string Word;  // The word itself.
+            public string wordTip; //Tip to find the word
             public Vector2 InitialGridPosition;  // The initial grid position for the word.
             public bool IsHorizontal;  // Flag indicating if the word is horizontal.
 
 
-            public BoardWords(string word, Vector2 gridPosition, bool isHorizontal)
+            public BoardWords(string word, string tip, Vector2 gridPosition, bool isHorizontal)
             {
                 Word = word;
+                wordTip = tip;
                 InitialGridPosition = gridPosition;
                 IsHorizontal = isHorizontal;
             }
@@ -57,7 +59,7 @@ namespace Assets.Scripts.Board
             {// if we have any words, then we actually initialize it.
                 for (int i = 0; i < words.Length; i++)
                 {
-                    _words[i] = new Word(this, i, words[i].Word, words[i].IsHorizontal, words[i].InitialGridPosition);
+                    _words[i] = new Word(this, i, words[i].Word, words[i].wordTip, words[i].IsHorizontal, words[i].InitialGridPosition);
                 }
 
                 foreach (Word fullWord in _words)

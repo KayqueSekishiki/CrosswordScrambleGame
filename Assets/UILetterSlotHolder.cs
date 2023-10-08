@@ -7,9 +7,9 @@ public class UILetterSlotHolder : MonoBehaviour
 {
     private LetterSlot _slotReference;
 
-    public LetterSlot SlotReference => _slotReference;
+    virtual public LetterSlot SlotReference => _slotReference;
 
-    public void StashLetterSlotReference(LetterSlot slot)
+    virtual public void StashLetterSlotReference(LetterSlot slot) 
     {
         _slotReference = slot;
     }
@@ -17,6 +17,6 @@ public class UILetterSlotHolder : MonoBehaviour
 
     public void OpenWordSolverWindow()
     {
-
+        FindObjectOfType<UISolvingPuzzleManager>().StartSolvingWord(_slotReference.ParentWord);
     }
 }

@@ -17,11 +17,13 @@ namespace Assets.Scripts.Board
         {
             public int Index { get; }
             public string Word { get; }
+            public string Tip { get; }
 
-            public WordEventHandler(int index, string word)
+            public WordEventHandler(int index, string word, string tip)
             {
                 this.Index = index;
                 this.Word = word;
+                Tip = tip;
             }
 
         }
@@ -33,6 +35,7 @@ namespace Assets.Scripts.Board
         public LetterSlot[] LetterSlots => _letterSlots;
 
         public string GetWord => _word;
+        public string GetTip => _tip;
 
         public bool IsWordHorizontal => _isWordHorizontal;
 
@@ -47,6 +50,7 @@ namespace Assets.Scripts.Board
         Board _parentBoard;
         int _index;
         string _word;
+        string _tip;
         private readonly bool _isWordHorizontal;
         private readonly Vector2 _wordInitialGridPosition;
         
@@ -58,11 +62,12 @@ namespace Assets.Scripts.Board
         /// <param name="word">Actual word string.</param>
         /// <param name="isWordHorizontal">Orientation of the word.</param>
         /// <param name="wordInitialGridPosition">Initial grid position of the word.</param>
-        public Word(Board boardParent, int index, string word, bool isWordHorizontal, Vector2 wordInitialGridPosition)
+        public Word(Board boardParent, int index, string word, string wordTip, bool isWordHorizontal, Vector2 wordInitialGridPosition)
         {
             _parentBoard = boardParent;
             _index = index;
             _word = word;
+            _tip = wordTip;
             _isWordHorizontal = isWordHorizontal;
             _wordInitialGridPosition = wordInitialGridPosition;
 
@@ -98,7 +103,7 @@ namespace Assets.Scripts.Board
         private void OnSlotLocked(object sender, LetterSlot.LetterEventHandler e)
         {
             //PLACE HOLDER
-            OnWordUpdated.Invoke(this, new WordEventHandler(_index, GetWord));
+            OnWordUpdated.Invoke(this, new WordEventHandler(_index, GetWord,_tip));
         }
 
         private void OnSlotFree(object sender, LetterSlot.LetterEventHandler e)
@@ -116,10 +121,10 @@ namespace Assets.Scripts.Board
 
         private void OnLetterValidated(object sender, LetterSlot.LetterEventHandler e)
         {
-            OnWordUpdated.Invoke(this, new WordEventHandler(_index, GetWord));
+            OnWordUpdated.Invoke(this, new WordEventHandler(_index, GetWord, _tip));
             if (IsWordComplete())
             {
-                OnWordCompleted.Invoke(this, new WordEventHandler(_index, GetWord));
+                OnWordCompleted.Invoke(this, new WordEventHandler(_index, GetWord, _tip));
             }
 
         }
@@ -187,7 +192,7 @@ namespace Assets.Scripts.Board
                 }
             }
 
-            OnWordCompleted.Invoke(this, new WordEventHandler(_index, GetWord));
+            OnWordCompleted.Invoke(this, new WordEventHandler(_index, GetWord, _tip));
             return (int)GameReturnCodes.Success;
         }
 

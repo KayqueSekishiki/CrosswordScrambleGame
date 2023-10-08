@@ -94,8 +94,9 @@ namespace Assets.Scripts.Board
                 OcupySlot();
                 OnSlotOccupied?.Invoke(this, new LetterEventHandler(_index, CorrectLetter, _gridPosition));
 
+            
                 //checks if the letter is correct
-                if (letter == _correctLetter)
+                if (letter.ToString().ToLower() == _correctLetter.ToString().ToLower())
                 {
                     //locks the slot
                     LockSlot();
