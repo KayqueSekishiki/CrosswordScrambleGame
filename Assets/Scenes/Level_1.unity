@@ -2053,26 +2053,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b6f94f970a72b42a02f3bd22af2653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridSize: 10
+  _gridSize: 12
   _runDebugGridMode: 0
   _boardCanvas: {fileID: 310415954}
   _letterSlotPrefab: {fileID: 1872197672667371925, guid: 90f8cdf05a5e0a8488fb6a32ebda2f09, type: 3}
   _letterSlotPrefabVariant: {fileID: 6620171389335116505, guid: 823a7368710c5bb4f9c266d7979cf949, type: 3}
   _gameWordsHolderList:
+  - Word: Figuereido
+    wordTip: "Em qual governo come\xE7ou o declinio econ\xF4mico?"
+    InitialGridPosition: {x: 0, y: 4}
+    IsHorizontal: 1
   - Word: Geisel
     wordTip: "Em qual governo ocorreu a Abertura Pol\xEDtica?"
-    InitialGridPosition: {x: 2, y: 1}
+    InitialGridPosition: {x: 4, y: 3}
     IsHorizontal: 0
   - Word: GuerraSuja
     wordTip: "No Governo do Emilio Medici foi intensificado a repress\xE3o ao movimento
       de esquerda com um tipo de a\xE7\xE3o repreensiva chamada:"
-    InitialGridPosition: {x: 0, y: 2}
+    InitialGridPosition: {x: 2, y: 7}
     IsHorizontal: 1
   - Word: DiretasJa
     wordTip: "Qual foi o Movimento que defendia a realiza\xE7\xF5es de elei\xE7\xF5es
       diretas para presidente?"
-    InitialGridPosition: {x: 4, y: 0}
-    IsHorizontal: 0
+    InitialGridPosition: {x: 3, y: 5}
+    IsHorizontal: 1
 --- !u!4 &1046799115
 Transform:
   m_ObjectHideFlags: 0
