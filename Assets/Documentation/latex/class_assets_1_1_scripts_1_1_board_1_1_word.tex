@@ -1,0 +1,120 @@
+\doxysection{Assets.\+Scripts.\+Board.\+Word Class Reference}
+\hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word}{}\label{class_assets_1_1_scripts_1_1_board_1_1_word}\index{Assets.Scripts.Board.Word@{Assets.Scripts.Board.Word}}
+
+
+Represents a word on the game board.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_assets_1_1_scripts_1_1_board_1_1_word_1_1_word_event_handler}{Word\+Event\+Handler}}
+\begin{DoxyCompactList}\small\item\em Event handler structure for when a word is completed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_word_a1d02d214a6e6e626ff34d89c6c3793e5}{Word}} (\mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_board}{Board}} board\+Parent, int index, string word, bool is\+Word\+Horizontal, Vector2 word\+Initial\+Grid\+Position)
+\begin{DoxyCompactList}\small\item\em Constructor to initialize a Word instance. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_word_ac2e9fd8ce9aa9e042af0559c1ca4d2e9}{Is\+Word\+Complete}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the word is complete. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_word_adebd346086478db64a7c4c6585777932}{Complete\+Word}} ()
+\begin{DoxyCompactList}\small\item\em Forces the completion of the word. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_word_a6dcdf58097bb4aac57cc1e5a2cfb1d2a}{Restart\+Word}} ()
+\begin{DoxyCompactList}\small\item\em Forces the restart of the word. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word_adb7aa646e8b2b063c7bab0446cccb6d3}\label{class_assets_1_1_scripts_1_1_board_1_1_word_adb7aa646e8b2b063c7bab0446cccb6d3} 
+Event\+Handler$<$ \mbox{\hyperlink{struct_assets_1_1_scripts_1_1_board_1_1_word_1_1_word_event_handler}{Word\+Event\+Handler}} $>$ {\bfseries On\+Word\+Completed}
+\begin{DoxyCompactList}\small\item\em Event triggered when a word is completed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word_a1d0868101ffc315970a30425f7e30e18}\label{class_assets_1_1_scripts_1_1_board_1_1_word_a1d0868101ffc315970a30425f7e30e18} 
+\mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_letter_slot}{Letter\+Slot}}\mbox{[}$\,$\mbox{]} {\bfseries Letter\+Slots}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Public accessor for the Letter\+Slot array. \end{DoxyCompactList}\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word_a8901eebac1f6eb1e0ae0b1fe223a90db}\label{class_assets_1_1_scripts_1_1_board_1_1_word_a8901eebac1f6eb1e0ae0b1fe223a90db} 
+string {\bfseries Get\+Word}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word_ac1d6f43e6f7338d2458c93e746dc09f4}\label{class_assets_1_1_scripts_1_1_board_1_1_word_ac1d6f43e6f7338d2458c93e746dc09f4} 
+bool {\bfseries Is\+Word\+Horizontal}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word_ad0ede951d0453e5a8b5e7e33469d1fb6}\label{class_assets_1_1_scripts_1_1_board_1_1_word_ad0ede951d0453e5a8b5e7e33469d1fb6} 
+Vector2 {\bfseries Word\+Initial\+Grid\+Position}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a word on the game board. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word_a1d02d214a6e6e626ff34d89c6c3793e5}\label{class_assets_1_1_scripts_1_1_board_1_1_word_a1d02d214a6e6e626ff34d89c6c3793e5} 
+\index{Assets.Scripts.Board.Word@{Assets.Scripts.Board.Word}!Word@{Word}}
+\index{Word@{Word}!Assets.Scripts.Board.Word@{Assets.Scripts.Board.Word}}
+\doxysubsubsection{\texorpdfstring{Word()}{Word()}}
+{\footnotesize\ttfamily Assets.\+Scripts.\+Board.\+Word.\+Word (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_assets_1_1_scripts_1_1_board_1_1_board}{Board}}}]{board\+Parent,  }\item[{int}]{index,  }\item[{string}]{word,  }\item[{bool}]{is\+Word\+Horizontal,  }\item[{Vector2}]{word\+Initial\+Grid\+Position }\end{DoxyParamCaption})}
+
+
+
+Constructor to initialize a Word instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em board\+Parent} & Parent board object.\\
+\hline
+{\em index} & Index of the word.\\
+\hline
+{\em word} & Actual word string.\\
+\hline
+{\em is\+Word\+Horizontal} & Orientation of the word.\\
+\hline
+{\em word\+Initial\+Grid\+Position} & Initial grid position of the word.\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word_adebd346086478db64a7c4c6585777932}\label{class_assets_1_1_scripts_1_1_board_1_1_word_adebd346086478db64a7c4c6585777932} 
+\index{Assets.Scripts.Board.Word@{Assets.Scripts.Board.Word}!CompleteWord@{CompleteWord}}
+\index{CompleteWord@{CompleteWord}!Assets.Scripts.Board.Word@{Assets.Scripts.Board.Word}}
+\doxysubsubsection{\texorpdfstring{CompleteWord()}{CompleteWord()}}
+{\footnotesize\ttfamily int Assets.\+Scripts.\+Board.\+Word.\+Complete\+Word (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Forces the completion of the word. 
+
+\begin{DoxyReturn}{Returns}
+Success or failure code.
+\end{DoxyReturn}
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word_ac2e9fd8ce9aa9e042af0559c1ca4d2e9}\label{class_assets_1_1_scripts_1_1_board_1_1_word_ac2e9fd8ce9aa9e042af0559c1ca4d2e9} 
+\index{Assets.Scripts.Board.Word@{Assets.Scripts.Board.Word}!IsWordComplete@{IsWordComplete}}
+\index{IsWordComplete@{IsWordComplete}!Assets.Scripts.Board.Word@{Assets.Scripts.Board.Word}}
+\doxysubsubsection{\texorpdfstring{IsWordComplete()}{IsWordComplete()}}
+{\footnotesize\ttfamily bool Assets.\+Scripts.\+Board.\+Word.\+Is\+Word\+Complete (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the word is complete. 
+
+\begin{DoxyReturn}{Returns}
+True if complete, false otherwise.
+\end{DoxyReturn}
+\Hypertarget{class_assets_1_1_scripts_1_1_board_1_1_word_a6dcdf58097bb4aac57cc1e5a2cfb1d2a}\label{class_assets_1_1_scripts_1_1_board_1_1_word_a6dcdf58097bb4aac57cc1e5a2cfb1d2a} 
+\index{Assets.Scripts.Board.Word@{Assets.Scripts.Board.Word}!RestartWord@{RestartWord}}
+\index{RestartWord@{RestartWord}!Assets.Scripts.Board.Word@{Assets.Scripts.Board.Word}}
+\doxysubsubsection{\texorpdfstring{RestartWord()}{RestartWord()}}
+{\footnotesize\ttfamily int Assets.\+Scripts.\+Board.\+Word.\+Restart\+Word (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Forces the restart of the word. 
+
+\begin{DoxyReturn}{Returns}
+Success or failure code.
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Git Repos/\+Crossword\+Scramble\+Game/\+Assets/\+Scripts/\+Board/Word.\+cs\end{DoxyCompactItemize}
